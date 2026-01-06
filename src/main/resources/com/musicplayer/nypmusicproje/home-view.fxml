@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.musicplayer.nypmusicproje.controllers.HomeController"
+      spacing="30" styleClass="page">
+
+    <padding>
+        <Insets topRightBottomLeft="30"/>
+    </padding>
+
+    <!-- Hoşgeldin Başlığı -->
+    <VBox spacing="5">
+        <Label fx:id="welcomeLabel" text="Hoş Geldin!" styleClass="page-title"/>
+        <Label text="Müzik keşfetmeye hazır mısın?" styleClass="page-subtitle"/>
+    </VBox>
+
+    <!-- Son Çalınanlar -->
+    <VBox spacing="15">
+        <Label text="Son Çalınanlar" styleClass="section-title"/>
+        <ScrollPane fitToHeight="true" styleClass="scroll-pane">
+            <FlowPane fx:id="recentSongsPane" hgap="15" vgap="15"/>
+        </ScrollPane>
+    </VBox>
+
+    <!-- Öneriler -->
+    <VBox spacing="15" VBox.vgrow="ALWAYS">
+        <Label text="Senin İçin Öneriler" styleClass="section-title"/>
+        <ScrollPane fitToHeight="true" styleClass="scroll-pane">
+            <FlowPane fx:id="recommendedPane" hgap="15" vgap="15"/>
+        </ScrollPane>
+    </VBox>
+
+</VBox>

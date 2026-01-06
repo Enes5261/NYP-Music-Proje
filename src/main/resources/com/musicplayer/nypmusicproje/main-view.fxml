@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.musicplayer.nypmusicproje.controllers.MainController"
+            styleClass="root">
+
+    <!-- Sol Sidebar -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="200" spacing="5">
+            <padding>
+                <Insets top="20" right="10" bottom="20" left="10"/>
+            </padding>
+
+            <!-- Logo -->
+            <Label text="🎵 Melodix" styleClass="app-title">
+                <padding>
+                    <Insets bottom="30"/>
+                </padding>
+            </Label>
+
+            <!-- Navigasyon Butonları -->
+            <Button fx:id="homeButton" text="🏠  Ana Sayfa"
+                    onAction="#onHomeClicked"
+                    styleClass="nav-button,active"
+                    maxWidth="Infinity"/>
+
+            <Button fx:id="libraryButton" text="📚  Kitaplık"
+                    onAction="#onLibraryClicked"
+                    styleClass="nav-button"
+                    maxWidth="Infinity"/>
+
+            <Button fx:id="playlistsButton" text="📋  Oynatma Listeleri"
+                    onAction="#onPlaylistsClicked"
+                    styleClass="nav-button"
+                    maxWidth="Infinity"/>
+
+            <!-- Boşluk -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Alt Bilgi -->
+            <Label text="v1.0.0" styleClass="version-label">
+                <padding>
+                    <Insets top="10"/>
+                </padding>
+            </Label>
+        </VBox>
+    </left>
+
+    <!-- Ana İçerik Alanı -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area"/>
+    </center>
+
+    <!-- Alt Oynatıcı -->
+    <bottom>
+        <HBox styleClass="player-bar" spacing="20" alignment="CENTER_LEFT">
+            <padding>
+                <Insets topRightBottomLeft="15"/>
+            </padding>
+
+            <!-- Şarkı Bilgisi -->
+            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                <Label fx:id="currentSongLabel" text="Şarkı seçilmedi" styleClass="current-song"/>
+                <Label fx:id="currentArtistLabel" text="" styleClass="current-artist"/>
+            </VBox>
+
+            <!-- Kontroller -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="⏮" onAction="#onPreviousClicked" styleClass="control-button"/>
+                <Button fx:id="playPauseButton" text="▶" onAction="#onPlayPauseClicked"
+                        styleClass="control-button,play-button"/>
+                <Button text="⏭" onAction="#onNextClicked" styleClass="control-button"/>
+            </HBox>
+
+            <!-- Ses Kontrolü -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="🔊" styleClass="volume-icon"/>
+                <Slider prefWidth="100" min="0" max="100" value="70" styleClass="volume-slider"/>
+            </HBox>
+        </HBox>
+    </bottom>
+
+</BorderPane>

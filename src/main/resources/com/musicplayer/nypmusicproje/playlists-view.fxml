@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.musicplayer.nypmusicproje.controllers.PlaylistsController"
+      spacing="20" styleClass="page">
+
+    <padding>
+        <Insets topRightBottomLeft="30"/>
+    </padding>
+
+    <!-- Başlık -->
+    <Label text="Oynatma Listeleri" styleClass="page-title"/>
+
+    <!-- İçerik -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+        <!-- Sol: Oynatma Listeleri -->
+        <VBox spacing="10" prefWidth="250">
+            <Label text="Listelerim" styleClass="section-title"/>
+
+            <ListView fx:id="playlistListView" VBox.vgrow="ALWAYS" styleClass="playlist-list"/>
+
+            <HBox spacing="10">
+                <Button fx:id="createPlaylistButton"
+                        text="➕ Yeni Liste"
+                        onAction="#onCreatePlaylistClicked"
+                        styleClass="action-button"
+                        HBox.hgrow="ALWAYS"/>
+                <Button fx:id="deletePlaylistButton"
+                        text="🗑️"
+                        onAction="#onDeletePlaylistClicked"
+                        styleClass="action-button,danger-button"/>
+            </HBox>
+        </VBox>
+
+        <!-- Sağ: Liste Detayları -->
+        <VBox spacing="15" HBox.hgrow="ALWAYS">
+
+            <!-- Liste Başlığı -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label fx:id="playlistNameLabel"
+                           text="Oynatma Listesi"
+                           styleClass="playlist-detail-title"/>
+                    <Label fx:id="songCountLabel"
+                           text="0 şarkı"
+                           styleClass="playlist-song-count"/>
+                </VBox>
+
+                <Button text="▶ Çal"
+                        onAction="#onPlayPlaylistClicked"
+                        styleClass="action-button,play-list-button"/>
+                <Button text="✏️ Yeniden Adlandır"
+                        onAction="#onRenamePlaylistClicked"
+                        styleClass="action-button"/>
+            </HBox>
+
+            <Separator/>
+
+            <!-- Şarkı Listesi -->
+            <ListView fx:id="playlistSongsView"
+                      VBox.vgrow="ALWAYS"
+                      styleClass="playlist-songs-view">
+                <placeholder>
+                    <Label text="Bu listede henüz şarkı yok
+Kitaplıktan şarkı ekleyebilirsin!"
+                           styleClass="placeholder-label"/>
+                </placeholder>
+            </ListView>
+
+            <!-- Aksiyon Butonları -->
+            <HBox spacing="10">
+                <Button fx:id="removeFromPlaylistButton"
+                        text="➖ Listeden Kaldır"
+                        onAction="#onRemoveFromPlaylistClicked"
+                        styleClass="action-button,danger-button"/>
+            </HBox>
+        </VBox>
+
+    </HBox>
+
+</VBox>

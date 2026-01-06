@@ -1,0 +1,378 @@
+/* ========== GENEL STILLER ========== */
+.root {
+    -fx-background-color: #0a0a0a;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #2d2d2d;
+    -fx-border-width: 0 1 0 0;
+}
+
+.app-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff6b35;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b3b3b3;
+    -fx-font-size: 14px;
+    -fx-padding: 12 15 12 15;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.nav-button:hover {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ffffff;
+}
+
+.nav-button.active {
+    -fx-background-color: #ff6b35;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.version-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 11px;
+}
+
+/* ========== İÇERİK ALANI ========== */
+.content-area {
+    -fx-background-color: #0a0a0a;
+}
+
+.page {
+    -fx-background-color: #0a0a0a;
+}
+
+.page-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.page-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #b3b3b3;
+}
+
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+/* ========== ŞARKI KARTLARI ========== */
+.song-card {
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+.song-card:hover {
+    -fx-background-color: #2d2d2d;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.album-cover {
+    -fx-background-color: linear-gradient(to bottom right, #ff6b35, #ff8f5e);
+    -fx-background-radius: 6;
+}
+
+.song-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-wrap-text: true;
+}
+
+.song-artist {
+    -fx-font-size: 11px;
+    -fx-text-fill: #b3b3b3;
+    -fx-wrap-text: true;
+}
+
+/* ========== ARAMA ========== */
+.search-field {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #666666;
+    -fx-font-size: 14px;
+    -fx-padding: 10 15 10 15;
+    -fx-background-radius: 20;
+    -fx-border-color: #2d2d2d;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+}
+
+.search-field:focused {
+    -fx-border-color: #ff6b35;
+    -fx-background-color: #2d2d2d;
+}
+
+/* ========== TABLO ========== */
+.songs-table {
+    -fx-background-color: transparent;
+}
+
+.songs-table .table-view {
+    -fx-background-color: #1a1a1a;
+}
+
+.songs-table .column-header {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 15 10 15 10;
+}
+
+.songs-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 8 0 8 0;
+}
+
+.songs-table .table-row-cell:hover {
+    -fx-background-color: #2d2d2d;
+}
+
+.songs-table .table-row-cell:selected {
+    -fx-background-color: #ff6b35;
+    -fx-text-fill: #ffffff;
+}
+
+.songs-table .table-cell {
+    -fx-padding: 8 10 8 10;
+}
+
+.placeholder-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 14px;
+}
+
+/* ========== PLAYER BAR ========== */
+.player-bar {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #2d2d2d;
+    -fx-border-width: 1 0 0 0;
+}
+
+.current-song {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.current-artist {
+    -fx-font-size: 12px;
+    -fx-text-fill: #b3b3b3;
+}
+
+.control-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-background-radius: 50;
+    -fx-min-width: 45px;
+    -fx-min-height: 45px;
+    -fx-cursor: hand;
+}
+
+.control-button:hover {
+    -fx-background-color: #2d2d2d;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.play-button {
+    -fx-background-color: #ff6b35;
+    -fx-font-size: 20px;
+}
+
+.play-button:hover {
+    -fx-background-color: #ff8f5e;
+}
+
+.volume-icon {
+    -fx-text-fill: #b3b3b3;
+    -fx-font-size: 16px;
+}
+
+.volume-slider .track {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 5;
+}
+
+.volume-slider .thumb {
+    -fx-background-color: #ff6b35;
+    -fx-background-radius: 10;
+}
+
+/* ========== OYNATMA LİSTELERİ ========== */
+.playlist-list {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #2d2d2d;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.playlist-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 12 15 12 15;
+    -fx-font-size: 13px;
+}
+
+.playlist-list .list-cell:hover {
+    -fx-background-color: #2d2d2d;
+}
+
+.playlist-list .list-cell:selected {
+    -fx-background-color: #ff6b35;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.playlist-detail-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.playlist-song-count {
+    -fx-font-size: 13px;
+    -fx-text-fill: #b3b3b3;
+}
+
+.playlist-songs-view {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #2d2d2d;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.playlist-songs-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10 15 10 15;
+    -fx-font-size: 13px;
+}
+
+.playlist-songs-view .list-cell:hover {
+    -fx-background-color: #2d2d2d;
+}
+
+.playlist-songs-view .list-cell:selected {
+    -fx-background-color: #ff6b35;
+}
+
+/* ========== BUTONLAR ========== */
+.action-button {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #3d3d3d;
+}
+
+.play-list-button {
+    -fx-background-color: #ff6b35;
+}
+
+.play-list-button:hover {
+    -fx-background-color: #ff8f5e;
+}
+
+.danger-button {
+    -fx-background-color: #d32f2f;
+}
+
+.danger-button:hover {
+    -fx-background-color: #f44336;
+}
+
+/* ========== SCROLL PANE ========== */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 5;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #3d3d3d;
+}
+
+/* ========== SEPARATOR ========== */
+.separator .line {
+    -fx-border-color: #2d2d2d;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ========== CONTEXT MENU ========== */
+.context-menu {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #2d2d2d;
+    -fx-border-width: 1;
+}
+
+.context-menu .menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 8 15 8 15;
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: #ff6b35;
+}
+
+/* ========== DIALOG ========== */
+.dialog-pane {
+    -fx-background-color: #1a1a1a;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-pane .button {
+    -fx-background-color: #ff6b35;
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #ff8f5e;
+}
+
+.info-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
