@@ -23,7 +23,7 @@
     <VBox spacing="15">
         <Label text="Son Çalınanlar" styleClass="section-title"/>
         <ScrollPane fitToHeight="true" styleClass="scroll-pane">
-            <FlowPane fx:id="recentSongsPane" hgap="15" vgap="15"/>
+            <FlowPane fx:id="recentSongsPane" hgap="15" vgap="15" prefWrapLength="495"/>
         </ScrollPane>
     </VBox>
 
@@ -31,7 +31,7 @@
     <VBox spacing="15" VBox.vgrow="ALWAYS">
         <Label text="Senin İçin Öneriler" styleClass="section-title"/>
         <ScrollPane fitToHeight="true" styleClass="scroll-pane">
-            <FlowPane fx:id="recommendedPane" hgap="15" vgap="15"/>
+            <FlowPane fx:id="recommendedPane" hgap="15" vgap="15" prefWrapLength="495"/>
         </ScrollPane>
     </VBox>
 

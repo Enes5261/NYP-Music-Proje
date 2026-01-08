@@ -17,7 +17,7 @@
     <HBox spacing="20" alignment="CENTER_LEFT">
         <Label text="Kitaplık" styleClass="page-title" HBox.hgrow="ALWAYS"/>
         <TextField fx:id="searchField"
-                   promptText="🔍 Şarkı, sanatçı veya albüm ara..."
+                   promptText="🔍 Şarkı, sanatçı veya müzik türü ara..."
                    prefWidth="300"
                    styleClass="search-field"
                    onKeyReleased="#onSearchKeyReleased"/>
@@ -28,7 +28,7 @@
         <columns>
             <TableColumn fx:id="titleColumn" text="Şarkı Adı" prefWidth="300"/>
             <TableColumn fx:id="artistColumn" text="Sanatçı" prefWidth="250"/>
-            <TableColumn fx:id="albumColumn" text="Albüm" prefWidth="250"/>
+            <TableColumn fx:id="albumColumn" text="Müzik Türü" prefWidth="250"/>
             <TableColumn fx:id="durationColumn" text="Süre" prefWidth="100"/>
         </columns>
         <placeholder>

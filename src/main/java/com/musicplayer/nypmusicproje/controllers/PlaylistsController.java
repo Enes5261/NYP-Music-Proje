@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public class PlaylistsController {
 
+    // FXML bileşenleri
     @FXML private ListView<Playlist> playlistListView;
     @FXML private ListView<Song> playlistSongsView;
     @FXML private Label playlistNameLabel;
@@ -23,12 +24,13 @@ public class PlaylistsController {
 
     @FXML
     public void initialize() {
+        // Singleton müzik servisini al
         musicService = MusicPlayerService.getInstance();
 
-        // Oynatma listelerini yükle
+        // Oynatma listelerini ListView'e yükle
         playlistListView.setItems(musicService.getPlaylists());
 
-        // Liste seçildiğinde
+        // Liste seçimi değiştiğinde detayları güncelle
         playlistListView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldVal, newVal) -> {
                     if (newVal != null) {
@@ -37,7 +39,7 @@ public class PlaylistsController {
                 }
         );
 
-        // Şarkıya çift tıklama
+        // Şarkıya çift tıklanınca çalmaya başla
         playlistSongsView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Song selected = playlistSongsView.getSelectionModel().getSelectedItem();
@@ -47,12 +49,13 @@ public class PlaylistsController {
             }
         });
 
-        // İlk listeyi seç
+        // Uygulama açıldığında ilk oynatma listesini seç
         if (!musicService.getPlaylists().isEmpty()) {
             playlistListView.getSelectionModel().select(0);
         }
     }
 
+    // Seçilen oynatma listesinin bilgilerini ekrana yükler
     private void loadPlaylistDetails(Playlist playlist) {
         selectedPlaylist = playlist;
         playlistNameLabel.setText(playlist.getName());
@@ -60,6 +63,7 @@ public class PlaylistsController {
         playlistSongsView.setItems(playlist.getSongs());
     }
 
+    // Yeni oynatma listesi oluşturur
     @FXML
     private void onCreatePlaylistClicked() {
         TextInputDialog dialog = new TextInputDialog();
@@ -76,6 +80,7 @@ public class PlaylistsController {
         });
     }
 
+    // Seçilen oynatma listesini siler
     @FXML
     private void onDeletePlaylistClicked() {
         Playlist selected = playlistListView.getSelectionModel().getSelectedItem();
@@ -84,6 +89,7 @@ public class PlaylistsController {
             return;
         }
 
+        // Silme işlemi için kullanıcıdan onay al
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Silme Onayı");
         confirm.setHeaderText("'" + selected.getName() + "' listesini silmek istediğinize emin misiniz?");
@@ -98,6 +104,7 @@ public class PlaylistsController {
         }
     }
 
+    // Seçilen şarkıyı oynatma listesinden kaldırır
     @FXML
     private void onRemoveFromPlaylistClicked() {
         if (selectedPlaylist == null) {
@@ -113,9 +120,14 @@ public class PlaylistsController {
 
         selectedPlaylist.removeSong(selected);
         songCountLabel.setText(selectedPlaylist.getSongCount() + " şarkı");
+
+        // Kullanıcı oynatma listelerini kaydet
+        musicService.saveUserPlaylists();
+
         showAlert(Alert.AlertType.INFORMATION, "Başarılı", "Şarkı listeden kaldırıldı!");
     }
 
+    // Oynatma listesindeki ilk şarkıyı çalmaya başlar
     @FXML
     private void onPlayPlaylistClicked() {
         if (selectedPlaylist != null && !selectedPlaylist.getSongs().isEmpty()) {
@@ -125,6 +137,7 @@ public class PlaylistsController {
         }
     }
 
+    // Oynatma listesinin adını değiştirir
     @FXML
     private void onRenamePlaylistClicked() {
         if (selectedPlaylist == null) {
@@ -143,10 +156,13 @@ public class PlaylistsController {
                 selectedPlaylist.setName(name);
                 playlistListView.refresh();
                 playlistNameLabel.setText(name);
+
+                musicService.saveUserPlaylists();
             }
         });
     }
 
+    // Genel uyarı ve bilgilendirme penceresi
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

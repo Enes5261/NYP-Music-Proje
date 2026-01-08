@@ -1,0 +1,16 @@
+[
+  {
+    "username": "admin",
+    "password": "admin123",
+    "playlists": [
+      {
+        "name": "Favoriler",
+        "songs": []
+      },
+      {
+        "name": "gfdhf",
+        "songs": []
+      }
+    ]
+  }
+]

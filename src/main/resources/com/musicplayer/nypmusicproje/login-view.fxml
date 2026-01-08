@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.musicplayer.nypmusicproje.controllers.LoginController"
+            styleClass="root"
+            prefWidth="500" prefHeight="700">
+
+    <center>
+        <VBox alignment="CENTER" spacing="25" styleClass="login-container">
+            <padding>
+                <Insets topRightBottomLeft="40"/>
+            </padding>
+
+            <!-- Logo -->
+            <ImageView fitWidth="150" fitHeight="150"
+                       preserveRatio="true"
+                       smooth="true">
+                <image>
+                    <Image url="@images/melodix-logo.png"/>
+                </image>
+            </ImageView>
+
+            <!-- Başlık -->
+            <Label text="Melodix" styleClass="login-title"/>
+            <Label text="Müziğin Keyfini Çıkar" styleClass="login-subtitle"/>
+
+            <!-- Spacer -->
+            <Region prefHeight="20"/>
+
+            <!-- Kullanıcı Adı -->
+            <VBox spacing="8" maxWidth="350">
+                <Label text="Kullanıcı Adı" styleClass="input-label"/>
+                <TextField fx:id="usernameField"
+                           promptText="Kullanıcı adınızı girin"
+                           styleClass="login-input"/>
+            </VBox>
+
+            <!-- Şifre -->
+            <VBox spacing="8" maxWidth="350">
+                <Label text="Şifre" styleClass="input-label"/>
+                <PasswordField fx:id="passwordField"
+                               promptText="Şifrenizi girin"
+                               styleClass="login-input"/>
+            </VBox>
+
+            <!-- Hata Mesajı -->
+            <Label fx:id="errorLabel"
+                   text=""
+                   styleClass="error-label"
+                   wrapText="true"
+                   maxWidth="350"/>
+
+            <!-- Butonlar -->
+            <VBox spacing="12" maxWidth="350">
+                <Button fx:id="loginButton"
+                        text="Giriş Yap"
+                        onAction="#onLoginClicked"
+                        styleClass="login-button"
+                        maxWidth="Infinity"/>
+
+                <Button fx:id="registerButton"
+                        text="Kayıt Ol"
+                        onAction="#onRegisterClicked"
+                        styleClass="register-button"
+                        maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Alt Bilgi -->
+            <Label text="Varsayılan Kullanıcı: admin / admin123"
+                   styleClass="hint-label"/>
+
+        </VBox>
+    </center>
+
+</BorderPane>

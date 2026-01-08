@@ -2,20 +2,36 @@ package com.musicplayer.nypmusicproje.services;
 
 import com.musicplayer.nypmusicproje.models.Playlist;
 import com.musicplayer.nypmusicproje.models.Song;
+import com.musicplayer.nypmusicproje.models.User;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class MusicPlayerService {
     private static MusicPlayerService instance;
 
     private ObservableList<Song> allSongs;
     private ObservableList<Playlist> playlists;
-    private Song currentSong;
+
+    // ✅ Song'u Property olarak tanımla
+    private ObjectProperty<Song> currentSongProperty;
+
     private boolean isPlaying;
+    private User currentUser;
+
+    private MediaPlayer mediaPlayer;
 
     private MusicPlayerService() {
         allSongs = FXCollections.observableArrayList();
         playlists = FXCollections.observableArrayList();
+
+        // ✅ Property'yi başlat
+        currentSongProperty = new SimpleObjectProperty<>();
+
         isPlaying = false;
         initializeSampleData();
     }
@@ -28,32 +44,72 @@ public class MusicPlayerService {
     }
 
     private void initializeSampleData() {
-        // 10 örnek şarkı
-        allSongs.add(new Song("Midnight Dreams", "Luna Park", "Nightscape", "3:45", ""));
-        allSongs.add(new Song("Electric Sunset", "Neon Waves", "Horizon", "4:12", ""));
-        allSongs.add(new Song("Lost in Tokyo", "Urban Echo", "City Lights", "3:28", ""));
-        allSongs.add(new Song("Ocean Drive", "Coastal Vibes", "Summer Days", "4:01", ""));
-        allSongs.add(new Song("Starlight", "Aurora Sky", "Celestial", "3:55", ""));
-        allSongs.add(new Song("Neon Nights", "Synthwave City", "Retro Future", "4:23", ""));
-        allSongs.add(new Song("Moonlight Sonata", "Classical Dreams", "Piano Collection", "5:12", ""));
-        allSongs.add(new Song("Digital Paradise", "Cyber Pulse", "Matrix", "3:47", ""));
-        allSongs.add(new Song("Sunset Boulevard", "California Dreams", "West Coast", "4:05", ""));
-        allSongs.add(new Song("Northern Lights", "Arctic Sound", "Frozen", "4:30", ""));
+        allSongs.add(new Song("Kaç Kadeh Kırıldı", "Müslüm Gürses", "Arabesk", "4:05",
+                "/com/musicplayer/nypmusicproje/ses/kac-kadeh-kirildi.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/kac-kadeh-kirildi.jpg"));
 
-        // Örnek oynatma listesi
-        Playlist favorites = new Playlist("Favorilerim");
-        favorites.addSong(allSongs.get(0));
-        favorites.addSong(allSongs.get(2));
-        favorites.addSong(allSongs.get(4));
-        playlists.add(favorites);
+        allSongs.add(new Song("COOOK PARDON", "Lvbel C5", "Rap", "3:40",
+                "/com/musicplayer/nypmusicproje/ses/coook-pardon.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/coook-pardon.jpg"));
 
-        Playlist chill = new Playlist("Chill Vibes");
-        chill.addSong(allSongs.get(3));
-        chill.addSong(allSongs.get(6));
-        playlists.add(chill);
+        allSongs.add(new Song("Dom Dom Kurşunu", "İbrahim Tatlıses", "Arabesk", "3:35",
+                "/com/musicplayer/nypmusicproje/ses/dom-dom-kursunu.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/dom-dom-kursunu.jpg"));
+
+        allSongs.add(new Song("Rüya", "Manifest", "Pop", "3:50",
+                "/com/musicplayer/nypmusicproje/ses/ruya.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/ruya.jpg"));
+
+        allSongs.add(new Song("Zalim", "Sezen Aksu", "Arabesk", "4:00",
+                "/com/musicplayer/nypmusicproje/ses/zalim.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/zalim.jpg"));
+
+        allSongs.add(new Song("Kusura Bakma", "BLOK3", "Arabesk", "3:45",
+                "/com/musicplayer/nypmusicproje/ses/kusura-bakma.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/kusura-bakma.jpg"));
+
+        allSongs.add(new Song("No Lie", "Dua Lipa", "Yabancı Pop", "3:30",
+                "/com/musicplayer/nypmusicproje/ses/no-lie.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/no-lie.jpg"));
+
+        allSongs.add(new Song("See You Again", "Wiz Khalifa ft. C.P", "Yabancı Pop", "3:49",
+                "/com/musicplayer/nypmusicproje/ses/see-you-again.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/see-you-again.jpg"));
+
+        allSongs.add(new Song("Affet", "Müslüm Gürses", "Arabesk", "4:15",
+                "/com/musicplayer/nypmusicproje/ses/affet.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/affet.jpg"));
+
+        allSongs.add(new Song("Hangimiz Sevmedik", "Müslüm Gürses", "Arabesk", "4:00",
+                "/com/musicplayer/nypmusicproje/ses/hangimiz-sevmedik.mp3",
+                "/com/musicplayer/nypmusicproje/images/albums/hangimiz-sevmedik.jpg"));
+    }
+    public void loadUserPlaylists(User user) {
+        this.currentUser = user;
+        playlists.clear();
+
+        if (user.getPlaylists() != null && !user.getPlaylists().isEmpty()) {
+            playlists.addAll(user.getPlaylists());
+            System.out.println("✅ Kullanıcı playlist'leri yüklendi: " + playlists.size());
+        } else {
+            Playlist favorites = new Playlist("Favorilerim");
+            playlists.add(favorites);
+            user.addPlaylist(favorites);
+            System.out.println("✅ Varsayılan playlist oluşturuldu");
+        }
+
+        AuthService.getInstance().updateCurrentUser();
     }
 
-    // Şarkı yönetimi
+    public void saveUserPlaylists() {
+        if (currentUser != null) {
+            currentUser.getPlaylists().clear();
+            currentUser.getPlaylists().addAll(playlists);
+            AuthService.getInstance().updateCurrentUser();
+            System.out.println("✅ Playlist'ler kaydedildi");
+        }
+    }
+
     public ObservableList<Song> getAllSongs() {
         return allSongs;
     }
@@ -62,43 +118,154 @@ public class MusicPlayerService {
         allSongs.add(song);
     }
 
-    // Oynatma listesi yönetimi
     public ObservableList<Playlist> getPlaylists() {
         return playlists;
     }
 
     public void createPlaylist(String name) {
-        playlists.add(new Playlist(name));
+        createPlaylist(name, true);
+    }
+
+    public void createPlaylist(String name, boolean checkEmpty) {
+        if (checkEmpty && (name == null || name.trim().isEmpty())) {
+            System.out.println("❌ Playlist adı boş olamaz!");
+            return;
+        }
+        Playlist newPlaylist = new Playlist(name);
+        playlists.add(newPlaylist);
+
+        if (currentUser != null) {
+            currentUser.addPlaylist(newPlaylist);
+            saveUserPlaylists();
+        }
+
+        System.out.println("✅ Playlist oluşturuldu: " + name);
     }
 
     public void deletePlaylist(Playlist playlist) {
         playlists.remove(playlist);
+
+        if (currentUser != null) {
+            currentUser.removePlaylist(playlist);
+            saveUserPlaylists();
+        }
     }
 
-    // Müzik oynatma kontrolü
     public void play(Song song) {
-        currentSong = song;
-        isPlaying = true;
-        // Gerçek müzik çalma işlemi burada yapılacak
-        System.out.println("Şarkı çalınıyor: " + song.getTitle());
+        play(song, true);
+    }
+
+    public void play(Song song, boolean autoStart) {
+        if (song == null || song.getFilePath() == null || song.getFilePath().isEmpty()) {
+            System.err.println("❌ Şarkı dosyası bulunamadı!");
+            return;
+        }
+
+        try {
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+            }
+
+            String path = song.getFilePath();
+            java.net.URL resourceUrl = getClass().getResource(path);
+
+            if (resourceUrl == null) {
+                System.err.println("❌ Dosya bulunamadı: " + path);
+                return;
+            }
+
+            Media media = new Media(resourceUrl.toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+
+            mediaPlayer.setOnEndOfMedia(() -> {
+                System.out.println("🎵 Şarkı bitti");
+                isPlaying = false;
+            });
+
+            mediaPlayer.setOnError(() -> {
+                System.err.println("❌ MediaPlayer hatası: " + mediaPlayer.getError());
+            });
+
+            // ✅ Property'yi güncelle
+            currentSongProperty.set(song);
+
+            if (autoStart) {
+                mediaPlayer.play();
+                isPlaying = true;
+                System.out.println("▶️ Şarkı çalınıyor: " + song.getTitle());
+            } else {
+                isPlaying = false;
+                System.out.println("⏸️ Şarkı hazırlandı: " + song.getTitle());
+            }
+
+        } catch (Exception e) {
+            System.err.println("❌ Şarkı çalınamadı: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void pause() {
-        isPlaying = false;
-        System.out.println("Müzik duraklatıldı");
+        if (mediaPlayer != null && isPlaying) {
+            mediaPlayer.pause();
+            isPlaying = false;
+            System.out.println("⏸️ Müzik duraklatıldı");
+        }
+    }
+
+    public void resume() {
+        if (mediaPlayer != null && !isPlaying) {
+            mediaPlayer.play();
+            isPlaying = true;
+            System.out.println("▶️ Müzik devam ediyor");
+        }
     }
 
     public void stop() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+            mediaPlayer = null;
+        }
         isPlaying = false;
-        currentSong = null;
-        System.out.println("Müzik durduruldu");
+
+        // ✅ Property'yi sıfırla
+        currentSongProperty.set(null);
+
+        System.out.println("⏹️ Müzik durduruldu");
     }
 
+    public void setVolume(double volume) {
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(volume);
+        }
+    }
+
+    public double getVolume() {
+        return mediaPlayer != null ? mediaPlayer.getVolume() : 0.5;
+    }
+
+    public void seek(double seconds) {
+        if (mediaPlayer != null) {
+            mediaPlayer.seek(Duration.seconds(seconds));
+        }
+    }
+
+    // ✅ Property getter - MainController için
+    public ObjectProperty<Song> currentSongProperty() {
+        return currentSongProperty;
+    }
+
+    // ✅ Normal getter - Property'den al
     public Song getCurrentSong() {
-        return currentSong;
+        return currentSongProperty.get();
     }
 
     public boolean isPlaying() {
         return isPlaying;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }

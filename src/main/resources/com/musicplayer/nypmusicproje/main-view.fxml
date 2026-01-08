@@ -4,6 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.musicplayer.nypmusicproje.controllers.MainController"
@@ -16,12 +18,26 @@
                 <Insets top="20" right="10" bottom="20" left="10"/>
             </padding>
 
-            <!-- Logo -->
-            <Label text="🎵 Melodix" styleClass="app-title">
+            <HBox alignment="CENTER_LEFT" spacing="10">
                 <padding>
                     <Insets bottom="30"/>
                 </padding>
-            </Label>
+
+                <ImageView fitWidth="45"
+                           fitHeight="45"
+                           preserveRatio="true"
+                           smooth="true"
+                           cache="true">
+                    <image>
+                        <Image url="@images/melodix-logo.png"
+                               smooth="true"
+                               backgroundLoading="false"
+                               preserveRatio="true"/>
+                    </image>
+                </ImageView>
+
+                <Label text="Melodix" styleClass="app-title"/>
+            </HBox>
 
             <!-- Navigasyon Butonları -->
             <Button fx:id="homeButton" text="🏠  Ana Sayfa"
@@ -43,7 +59,7 @@
             <Region VBox.vgrow="ALWAYS"/>
 
             <!-- Alt Bilgi -->
-            <Label text="v1.0.0" styleClass="version-label">
+            <Label text="v3.1.7" styleClass="version-label">
                 <padding>
                     <Insets top="10"/>
                 </padding>
@@ -80,7 +96,7 @@
             <!-- Ses Kontrolü -->
             <HBox spacing="10" alignment="CENTER">
                 <Label text="🔊" styleClass="volume-icon"/>
-                <Slider prefWidth="100" min="0" max="100" value="70" styleClass="volume-slider"/>
+                <Slider fx:id="volumeSlider" prefWidth="100" min="0" max="100" value="70" styleClass="volume-slider"/>
             </HBox>
         </HBox>
     </bottom>
